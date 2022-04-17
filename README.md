@@ -16,6 +16,4 @@
 
 В качестве CSS-фреймворка, использовать Bootstrap.
 
-
-
-https://github.com/Aleksey-Hugo/blog-kursach1/blob/main/Снимок%20экрана%20(199).png
+![Alt text](/relative/path/to/img.jpg?raw=true "Optional Title")
