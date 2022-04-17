@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %} Все статьи {%endblock%}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-8">
+        {% for article in articles %}
+            <div class="my-5 card text-center">
+              <div class="card-header">
+                  <strong>{{article.name}}</strong>
+              </div>
+              <div class="card-body text-start">
+                <p  class="post-text clip">{{article.text}}</p>
+                <a href="{% url 'articles:detail' pk=article.id %}" class="btn btn-outline-primary">Читать полностью</a>
+              </div>
+              <div class="card-footer text-muted">
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-6 text-start">
+                              Автор: <a href="{% url 'articles:all' pk=article.user.id %}">{{article.user}}</a>
+                          </div>
+                          <div class="col-6 text-end">
+                              {{article.create_date | date:"d.m.y - G:i"}}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        {% endfor %}
+
+        <nav aria-label="...">
+          <ul class="pagination">
+            {% if articles.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page=1">First</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ articles.previous_page_number }}">&laquo;</a>
+            </li>
+            {% endif %}
+
+            {% for page in articles.paginator.page_range %}
+            <li class="page-item {% if page == articles.number %} active {% endif %}">
+              <a class="page-link" href="?page={{page}}">{{ page }}</a>
+            </li>
+            {% endfor %}
+
+            {% if articles.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ articles.next_page_number }}">&raquo;</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ articles.paginator.num_pages }}">Last</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+    </div>
+
+    <div class="col-4">
+        <div class="my-5 card border-dark mb-3" style="max-width: 36rem;">
+          <div class="card-header text-center"><strong>Самые коментируемые записи</strong></div>
+          <div class="card-body text-dark">
+              {% for top in top_articles %}
+                <h5 class="card-title"><a href="{% url 'articles:detail' pk=top.id %}">{{top.name}}</a>
+                    <span class="badge bg-secondary">
+                        {% for post, com_cn in com_sz %}
+                            {% if  top.id == post%}
+                                {{com_cn}}
+                            {% endif %}
+                        {% endfor %}
+                    </span>
+                </h5>
+              <hr>
+              {% endfor %}
+          </div>
+        </div>
+        {% if  user.is_authenticated %}
+            <div class="text-center">
+                <a href="{% url 'articles:create' %}" class="btn btn-outline-dark">Создать новый пост</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+
+
+{% endblock %}

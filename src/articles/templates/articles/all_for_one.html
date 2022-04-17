@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %} Статьи {{user_now}} {%endblock%}
+
+
+{% block content %}
+
+<div class="row ">
+    <div class="col-8 mx-auto">
+        <h1 class="display-3 text-center">Статьи {{user_now}}</h1>
+        {% for article in articles %}
+            <div class="my-5 card ">
+              <div class="card-header text-center">
+                  <strong>{{article.name}}</strong>
+              </div>
+              <div class="card-body">
+                <p class="post-text clip">{{article.text}}</p>
+                <a href="{% url 'articles:detail' pk=article.id %}" class="btn btn-outline-primary">Читать полностью</a>
+                  {% if user.id == article.user.id%}
+                    <a href="{% url 'articles:update' pk=article.id %}" class="btn btn-outline-success" role="button" data-bs-toggle="button type='button'">Изменить статью</a>
+                    <a href="{% url 'articles:delete' pk=article.id %}" class="btn btn-outline-danger" role="button" data-bs-toggle="button type='button'">Удалить статью</a>
+                  {% endif %}
+              </div>
+              <div class="card-footer text-muted">
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-6 text-start">
+                              Автор: {{article.user}}
+                          </div>
+                          <div class="col-6 text-end">
+                              {{article.create_date | date:"d.m.y - G:i"}}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        {% endfor %}
+
+        <nav aria-label="...">
+          <ul class="pagination">
+            {% if articles.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page=1">First</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ articles.previous_page_number }}">&laquo;</a>
+            </li>
+            {% endif %}
+
+            {% for page in articles.paginator.page_range %}
+            <li class="page-item {% if page == articles.number %} active {% endif %}">
+              <a class="page-link" href="?page={{page}}">{{ page }}</a>
+            </li>
+            {% endfor %}
+
+            {% if articles.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ articles.next_page_number }}">&raquo;</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ articles.paginator.num_pages }}">Last</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+    </div>
+</div>
+
+
+
+{% endblock %}

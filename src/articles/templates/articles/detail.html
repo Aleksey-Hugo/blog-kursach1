@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %} {{article.name}} {% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-10 text-center mx-auto">
+        <h1 class="display-4 post-head"><strong>{{article.name}}</strong></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-10 mx-auto">
+        <p class="post-text">{{article.text | linebreaksbr}}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6 text-muted">
+        Автор: {{article.user}}
+    </div>
+    <div class="col-6 text-end text-muted">
+        Дата публикации: {{article.create_date | date:"d.m.y"}}
+    </div>
+</div>
+
+{% if user.id == article.user.id%}
+    <div class="row my-4">
+        <div class="col-12 text-end">
+            <a href="{% url 'articles:update' pk=article.id %}" class="btn btn-outline-success" role="button" data-bs-toggle="button type='button'">Изменить статью</a>
+            <a href="{% url 'articles:delete' pk=article.id %}" class="btn btn-outline-danger" role="button" data-bs-toggle="button type='button'">Удалить статью</a>
+        </div>
+    </div>
+{% endif %}
+<hr>
+
+{% if user.is_authenticated%}
+<div class="row">
+    <div class="col-6">
+        <form action="{% url 'articles:save' %}" method="post"> {% csrf_token %}
+            <p>{{user.username.title}}</p>
+            <div class="my-2">{{form.text}}</div>
+            <input type='hidden' name='user' value='{{user.id}}'/>
+            <input type='hidden' name='post' value='{{article.id}}'/>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-end">
+                        <input class="btn btn-success" type="submit" value="Отправить">
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<hr>
+{% else %}
+<p>Что бы оставить коментарий
+    <a href="{% url 'users:login' %}">войдите</a> или
+    <a href="{% url 'users:register' %}">зарегистрируйтесь</a> на сайте.
+</p>
+<hr>
+{% endif %}
+
+<h4 class="display-4">Комментарии:</h4>
+<div class="row">
+    <div class="col-8">
+        <table class="table table-striped bottom-zero">
+          <tbody>
+          {% for comment in comments %}
+            <tr>
+              <th scope="row">
+                  <!--<div class="container"> -->
+                      <div class="row">
+                          <div class="col-1">
+                              <img class="text-start" src="https://img.icons8.com/ios/60/000000/cat-profile.png"/>
+                          </div>
+                          <div class="col-10 comment-size">
+                              <small class="head-comm">{{comment.user.all.first}}, {{comment.pub_date| date:"G:i - d.m.y"}}</small>
+                              <p class="comment">{{comment.text}}</p>
+                              <small class="head-comm">
+                                  <a href="{% url 'articles:all' pk=comment.user.all.first.id %}">Статьи пользователя</a>
+                              </small>
+                          </div>
+                      </div>
+                  <!--</div>-->
+              </th>
+
+            </tr>
+          {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
