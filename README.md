@@ -16,4 +16,4 @@
 
 В качестве CSS-фреймворка, использовать Bootstrap.
 
-![Alt text](/relative/path/to/img.jpg?raw=true "Optional Title")
+![Alt text](https://github.com/Aleksey-Hugo/blog-kursach1/blob/main/Снимок%20экрана%20(199).png?raw=true")
