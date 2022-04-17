@@ -16,6 +16,6 @@
 
 В качестве CSS-фреймворка, использовать Bootstrap.
 
-!(https://github.com/{Aleksey-Hugo}/{blog-kursach1}/blob/{main}/{path}/Снимок%20экрана%20(199).png)
+
 
 https://github.com/Aleksey-Hugo/blog-kursach1/blob/main/Снимок%20экрана%20(199).png
