@@ -16,4 +16,4 @@
 
 В качестве CSS-фреймворка, использовать Bootstrap.
 
-![Image alt]("https://drive.google.com/file/d/18HmsmkcmF0_mMJjF-BhTow-vhNiOCpxg/view?usp=sharing")
+![Image alt]("Снимок экрана (1999).png")
