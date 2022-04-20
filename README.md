@@ -19,7 +19,7 @@
 Установка
 1.Клонировать репозиторий
 git clone https://github.com/Aleksey-Hugo/blog-kursach1
-cd skillbox_django_news_portal
+cd blog-kursach1
 2.Создать и активировать виртуальное окружение
 Unix/macOS
 python -m venv env
