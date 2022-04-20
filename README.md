@@ -16,4 +16,25 @@
 
 В качестве CSS-фреймворка, использовать Bootstrap.
 
+Установка
+Клонировать репозиторий
+git clone https://github.com/vowatchka/skillbox_django_news_portal.git
+cd skillbox_django_news_portal
+Создать и активировать виртуальное окружение
+Unix/macOS
+python -m venv env
+source env/bin/activate
+Windows
+python -m venv env
+env\Scripts\activate
+Установить зависимости
+python -m pip install -r requirements.txt
+Выполнить миграции и создать суперпользователя
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+Запустить отладочный сервер
+python manage.py runserver
+Перейти по адресу http://127.0.0.1:8000/, зарегистрировать нового пользователя и начать работу.
+
 ![Image alt](https://github.com/Aleksey-Hugo/blog-kursach1/blob/main/Снимок%20экрана%20(1999).png)
