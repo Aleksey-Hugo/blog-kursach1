@@ -18,7 +18,7 @@
 
 Установка
 1.Клонировать репозиторий
-git clone https://github.com/vowatchka/skillbox_django_news_portal.git
+git clone https://github.com/Aleksey-Hugo/blog-kursach1
 cd skillbox_django_news_portal
 2.Создать и активировать виртуальное окружение
 Unix/macOS
